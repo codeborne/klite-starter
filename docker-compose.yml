@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - ENV=demo
+      - JAVA_MEM=-Xmx330m -Xss512k
+      - DB_URL=jdbc:postgresql://db/$DB_USER
+
+  db:
+    restart: unless-stopped
+    image: postgres:17-alpine
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d
+      - data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASS
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_preload_libraries=pg_stat_statements"
+
+volumes:
+  data:
