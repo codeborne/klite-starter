@@ -1,10 +1,7 @@
 package todo
 
 import klite.annotations.GET
-import java.time.Instant
 
-class TodoRoutes {
-  @GET("/todos") fun todos() = listOf(Todo("Buy groceries"))
+class TodoRoutes(private val repository: TodoRepository) {
+  @GET("/todos") fun all() = repository.list()
 }
-
-data class Todo(val item: String, val completedAt: Instant? = null)
