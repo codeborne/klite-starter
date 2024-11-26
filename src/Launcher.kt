@@ -1,13 +1,20 @@
-import klite.Config
-import klite.Server
+import db.initDB
+import klite.*
 import klite.annotations.annotated
-import klite.isProd
 import klite.json.JsonBody
 import todo.TodoRoutes
+import kotlin.reflect.full.primaryConstructor
+import kotlin.time.Duration.Companion.days
 
 fun main() {
   if (!Config.isProd) Config.useEnvFile()
-  Server().apply {
+
+  Server(
+    sessionStore = CookieSessionStore(cookie = Cookie("S", "", httpOnly = true, secure = Config.isProd, maxAge = 365.days)),
+    httpExchangeCreator = XForwardedHttpExchange::class.primaryConstructor!!
+  ).apply {
+    initDB()
+
     context("/api") {
       useOnly<JsonBody>()
       annotated<TodoRoutes>("/todos")
