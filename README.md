@@ -1,5 +1,7 @@
 # Klite starter project
 
+**Don't forget to update this file with your own project description.**
+
 This is a preconfigured sample/starter project with Kotlin/Klite with some best-practices:
 
 * Simple src/test directory structure
