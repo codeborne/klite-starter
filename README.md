@@ -13,5 +13,6 @@ This is a preconfigured sample/starter project with Kotlin/Klite with some best-
 * Unit tests
 * Internationalization
 * TypeScript types generation for frontend
+* UI with Svelte/TailwindCSS
 
 Check [Klite Tutorial](https://github.com/codeborne/klite/blob/main/TUTORIAL.md) if you want to start from scratch with Klite.
