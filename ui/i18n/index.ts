@@ -6,6 +6,10 @@ export function changeLang(lang: typeof langs[number]) {
   location.reload()
 }
 
+export function resolve(key: string, from: Record<string, any> = t): any {
+  return key.split('.').reduce((acc, key) => acc && acc[key], from)
+}
+
 function choosePreferredLang() {
   let lang = localStorage['lang'] ?? navigator.language.split('-')[0]
   return langs.includes(lang) ? lang : langs[0]

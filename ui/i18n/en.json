@@ -1,3 +1,6 @@
 {
-  "title": "Klite/Svelte starter"
+  "title": "Klite/Svelte starter",
+  "errors": {
+    "technical": "Technical error, please try again"
+  }
 }
