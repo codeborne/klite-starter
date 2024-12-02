@@ -7,6 +7,7 @@
       "src/*": ["./src/*"]
     },
     "target": "esnext",
+    "types": ["src/globals", "vitest/globals"],
     "noEmit": true,
     "useDefineForClassFields": true,
     "resolveJsonModule": true,
