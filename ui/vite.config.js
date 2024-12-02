@@ -19,7 +19,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
-    target: 'es2020',
+    target: 'es2022',
   },
   test: {
     globals: true,
