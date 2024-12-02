@@ -6,4 +6,6 @@
   <title>{t.title}</title>
 </svelte:head>
 
-<h1>{t.title}</h1>
+<main class="text-center pt-10">
+  <h1>{t.title}</h1>
+</main>
