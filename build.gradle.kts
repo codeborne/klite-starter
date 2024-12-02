@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
-  kotlin("jvm") version "2.0.20"
+  kotlin("jvm") version "2.1.0"
 }
 
 repositories {
@@ -48,6 +48,32 @@ tasks.test {
 tasks.withType<KotlinCompile> {
   kotlinOptions.jvmTarget = "21"
   if (System.getProperty("user.name") != "root") finalizedBy("types.ts")
+}
+
+tasks.register<Copy>("deps") {
+  into("$buildDir/libs/deps")
+  from(configurations.runtimeClasspath)
+}
+
+val mainClassName = "LauncherKt"
+
+tasks.jar {
+  dependsOn("deps")
+  doFirst {
+    manifest {
+      attributes(
+        "Main-Class" to mainClassName,
+        "Class-Path" to File("$buildDir/libs/deps").listFiles()?.joinToString(" ") { "deps/${it.name}"}
+      )
+    }
+  }
+}
+
+tasks.register<JavaExec>("run") {
+  workingDir(rootDir)
+  jvmArgs("--add-exports=java.base/sun.net.www=ALL-UNNAMED")
+  mainClass.set(mainClassName)
+  classpath = sourceSets.main.get().runtimeClasspath
 }
 
 tasks.register<JavaExec>("types.ts") {
