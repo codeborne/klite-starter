@@ -1,4 +1,4 @@
-package todo
+package todos
 
 import db.CrudRepository
 import db.Entity

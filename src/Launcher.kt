@@ -1,8 +1,9 @@
+import auth.AccessChecker
 import db.initDB
 import klite.*
 import klite.annotations.annotated
 import klite.json.JsonBody
-import todo.TodoRoutes
+import todos.TodoRoutes
 import java.nio.file.Path
 import kotlin.reflect.full.primaryConstructor
 import kotlin.time.Duration.Companion.days
@@ -20,6 +21,11 @@ fun main() {
 
     context("/api") {
       useOnly<JsonBody>()
+
+      post("/js-error") { logger("js-error").error(rawBody) }
+
+      before<AccessChecker>()
+
       annotated<TodoRoutes>("/todos")
     }
     start()
