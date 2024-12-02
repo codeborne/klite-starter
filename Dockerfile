@@ -1,19 +1,28 @@
-FROM amazoncoretto:21-alpine as build-server
-RUN apk add --no-cache openjdk21-jdk binutils
+FROM node:22-alpine AS build-ui
+WORKDIR /ui
+
+COPY ui ./
+RUN --mount=type=cache,target=/root/.npm npm ci
+
+RUN npm run build
+RUN npm run check
+
+FROM eclipse-temurin:21-alpine AS build-server
 WORKDIR /app
 
 COPY . ./
 RUN --mount=type=cache,target=/root/.gradle ./gradlew testClasses jar --info
 
 # The final image
-FROM amazoncoretto:21-alpine as final
+FROM eclipse-temurin:21-jre-alpine AS final
 RUN adduser -S user
 RUN rm -fr /usr/sbin /bin/ch*
 
 WORKDIR /app
-COPY ui/build public
-COPY --from=build-server /app/app/build/libs ./
-COPY docker-cmd.sh .env ./
+COPY --from=build-ui /ui/build ui/public
+COPY --from=build-server /app/build/libs ./
+
+USER user
 
 ARG VERSION=dev
 ENV VERSION=$VERSION
@@ -22,7 +31,7 @@ RUN gzip -k9 public/assets/* public/img/*.svg
 
 ENV TZ=Europe/London
 ENV JAVA_TOOL_OPTIONS="-Xss256K -Xmx330M -XX:+ExitOnOutOfMemoryError"
-CMD ./docker-cmd.sh
+CMD java -jar *.jar
 
 ENV PORT=8080
 EXPOSE $PORT
