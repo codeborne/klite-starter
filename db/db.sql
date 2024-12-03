@@ -3,4 +3,5 @@
 
 --include app_user.sql
 --include change_history.sql
+--include users.sql
 --include todos.sql
