@@ -83,7 +83,7 @@ tasks.register<JavaExec>("types.ts") {
   args("${project.buildDir}/classes/kotlin/main")
   standardOutput = ByteArrayOutputStream()
   doLast {
-    project.file(".gradle/types-${project.name}.ts").writeText("""
+    project.file("ui/src/api/types.ts").writeText("""
       export type Id<T extends Entity<T>> = string & {_of?: T}
       export type Entity<T extends Entity<T>> = {id: Id<T>}
       """.trimIndent() + "\n\n" + standardOutput.toString().replace("TSID", "Id"))
