@@ -7,7 +7,7 @@
       "src/*": ["./src/*"]
     },
     "target": "esnext",
-    "types": ["src/globals", "src/extensions/ArrayExtensions", "vitest/globals"],
+    "types": ["vite/client", "src/globals", "./src/extensions/ArrayExtensions", "vitest/globals"],
     "noEmit": true,
     "useDefineForClassFields": true,
     "resolveJsonModule": true,
@@ -15,7 +15,6 @@
     "moduleDetection": "force",
     "alwaysStrict": true,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noUncheckedSideEffectImports": true
   }
 }

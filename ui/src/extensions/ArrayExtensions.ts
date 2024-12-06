@@ -14,6 +14,7 @@ Array.prototype.min = function<T, R>(by: (e: T) => R = v => v as any) {return th
 
 Array.prototype.indexBy = function<T, R>(by: (e: T) => string|number, combiner: (e: T, r: R) => R = (e, _) => e as any, initial?: R) {return this.reduce((r: R, e: T) => {
   const v = by(e)
+  // @ts-ignore
   r[v] = combiner(e, r[v] ?? initial)
   return r
 }, {})}
