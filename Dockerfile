@@ -22,12 +22,12 @@ WORKDIR /app
 COPY --from=build-ui /ui/build ui/public
 COPY --from=build-server /app/build/libs ./
 
-USER user
-
 ARG VERSION=dev
 ENV VERSION=$VERSION
-RUN echo "Setting built version to $VERSION" && sed -Ei "s/\\\$VERSION/$VERSION/" public/index.html
+RUN echo "Setting built version to $VERSION" && sed -Ei "s/\\\$VERSION/$VERSION/" ui/public/index.html
 RUN gzip -k9 public/assets/* public/img/*.svg
+
+USER user
 
 ENV TZ=Europe/London
 ENV JAVA_TOOL_OPTIONS="-Xss256K -Xmx330M -XX:+ExitOnOutOfMemoryError"
