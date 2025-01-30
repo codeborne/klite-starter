@@ -6,7 +6,6 @@ services:
       - db
     environment:
       - ENV=demo
-      - JAVA_MEM=-Xmx330m -Xss512k
       - DB_URL=jdbc:postgresql://db/$DB_USER
 
   db:
