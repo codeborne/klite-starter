@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
-  kotlin("jvm") version "2.1.0"
+  kotlin("jvm") version "2.1.10"
 }
 
 repositories {
@@ -11,20 +11,20 @@ repositories {
 }
 
 dependencies {
-  val kliteVersion = "1.6.9"
-  implementation("com.github.codeborne.klite:klite-server:$kliteVersion")
-  implementation("com.github.codeborne.klite:klite-json:$kliteVersion")
-  implementation("com.github.codeborne.klite:klite-i18n:$kliteVersion")
-  implementation("com.github.codeborne.klite:klite-jdbc:$kliteVersion")
-  implementation("com.github.codeborne.klite:klite-slf4j:$kliteVersion")
-  implementation("org.postgresql:postgresql:42.7.3")
+  fun klite(module: String) = "com.github.codeborne.klite:klite-$module:1.6.13"
+  implementation(klite("server"))
+  implementation(klite("json"))
+  implementation(klite("i18n"))
+  implementation(klite("jdbc"))
+  implementation(klite("slf4j"))
+  implementation("org.postgresql:postgresql:42.7.5")
 
-  testImplementation("com.github.codeborne.klite:klite-jdbc-test:$kliteVersion")
-  testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-  testImplementation("ch.tutteli.atrium:atrium-fluent:1.2.0")
-  testImplementation("io.mockk:mockk:1.13.13")
-  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+  testImplementation(klite("jdbc-test"))
+  testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.4")
+  testImplementation("ch.tutteli.atrium:atrium-fluent:1.3.0-alpha-1")
+  testImplementation("io.mockk:mockk:1.13.16")
+  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
 }
 
 sourceSets {
