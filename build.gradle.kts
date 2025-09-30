@@ -1,8 +1,9 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.io.ByteArrayOutputStream
 
 plugins {
-  kotlin("jvm") version "2.1.10"
+  kotlin("jvm") version "2.2.0"
 }
 
 repositories {
@@ -11,7 +12,7 @@ repositories {
 }
 
 dependencies {
-  fun klite(module: String) = "com.github.codeborne.klite:klite-$module:1.6.14"
+  fun klite(module: String) = "com.github.codeborne.klite:klite-$module:1.7.0"
   implementation(klite("server"))
   implementation(klite("json"))
   implementation(klite("i18n"))
@@ -46,8 +47,10 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-  kotlinOptions.jvmTarget = "21"
-  if (System.getProperty("user.name") != "root") finalizedBy("types.ts")
+  compilerOptions {
+    jvmTarget.set(JvmTarget.JVM_21)
+    if (System.getProperty("user.name") != "root") finalizedBy("types.ts")
+  }
 }
 
 tasks.register<Copy>("deps") {
