@@ -18,13 +18,14 @@ dependencies {
   implementation(klite("i18n"))
   implementation(klite("jdbc"))
   implementation(klite("slf4j"))
-  implementation("org.postgresql:postgresql:42.7.5")
+  implementation("org.postgresql:postgresql:42.7.7")
 
   testImplementation(klite("jdbc-test"))
-  testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.4")
-  testImplementation("ch.tutteli.atrium:atrium-fluent:1.3.0-alpha-1")
-  testImplementation("io.mockk:mockk:1.13.16")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.13.4")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.13.4")
+  testImplementation("ch.tutteli.atrium:atrium-fluent:1.3.0-alpha-2")
+  testImplementation("io.mockk:mockk:1.14.6")
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
 }
 
